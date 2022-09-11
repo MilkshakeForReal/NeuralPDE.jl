@@ -1,7 +1,7 @@
 name = "NeuralPDE"
 uuid = "315f7962-48a3-4962-8226-d0f33b1235f0"
 authors = ["Chris Rackauckas <accounts@chrisrackauckas.com>"]
-version = "5.0.0"
+version = "5.2.0"
 
 [deps]
 Adapt = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
@@ -41,7 +41,7 @@ Adapt = "3"
 ArrayInterfaceCore = "0.1.13"
 CUDA = "3.0"
 ChainRulesCore = "1"
-ComponentArrays = "0.13"
+ComponentArrays = "0.13.2"
 DiffEqBase = "6"
 DiffEqNoiseProcess = "5.1"
 Distributions = "0.23, 0.24, 0.25"

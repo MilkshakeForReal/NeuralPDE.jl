@@ -437,8 +437,8 @@ function SciMLBase.symbolic_discretize(pde_system::PDESystem,
                 end
             else
                 x = map(chain) do x
-                    _x = ComponentArrays.ComponentArray(Lux.setup(Random.default_rng(),
-                                                                  x)[1])
+                    _x = ComponentArrays.ComponentArray(Lux.initialparameters(Random.default_rng(),
+                                                                              x))
                     Float64.(_x) # No ComponentArray GPU support
                 end
                 names = ntuple(i -> depvars[i], length(chain))
@@ -451,8 +451,8 @@ function SciMLBase.symbolic_discretize(pde_system::PDESystem,
                 init_params = init_params isa Array ? Float64.(init_params) :
                               init_params
             else
-                init_params = Float64.(ComponentArrays.ComponentArray(Lux.setup(Random.default_rng(),
-                                                                                chain)[1]))
+                init_params = Float64.(ComponentArrays.ComponentArray(Lux.initialparameters(Random.default_rng(),
+                                                                                            chain)))
             end
         end
     else
@@ -679,10 +679,4 @@ function SciMLBase.discretize(pde_system::PDESystem, discretization::PhysicsInfo
     f = OptimizationFunction(pinnrep.loss_functions.full_loss_function,
                              Optimization.AutoZygote())
     Optimization.OptimizationProblem(f, pinnrep.flat_init_params)
-end
-
-# Could be upstreamed to ComponentArrays
-function Adapt.adapt_storage(::Type{ComponentArrays.ComponentArray{T, N, A, Ax}},
-                             xs::AT) where {T, N, A, Ax, AT <: AbstractArray}
-    Adapt.adapt_storage(A, xs)
 end
