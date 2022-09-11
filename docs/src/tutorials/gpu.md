@@ -31,10 +31,10 @@ using the `gpu` function on the initial parameters, like:
 
 ```julia
 using Lux
-chain = Chain(Dense(3,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
+chain = Chain(Dense(3,inner,tanh),
+              Dense(inner,inner,tanh),
+              Dense(inner,inner,tanh),
+              Dense(inner,inner,tanh),
               Dense(inner,1)) 
 ps = Lux.setup(Random.default_rng(), chain)[1]
 ps = ps |> Lux.ComponentArray |> gpu .|> Float64
@@ -78,10 +78,10 @@ domains = [t ∈ Interval(t_min,t_max),
 
 # Neural network
 inner = 25
-chain = Chain(Dense(3,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
+chain = Chain(Dense(3,inner,tanh),
+              Dense(inner,inner,tanh),
+              Dense(inner,inner,tanh),
+              Dense(inner,inner,tanh),
               Dense(inner,1)) 
 
 strategy = GridTraining(0.05)

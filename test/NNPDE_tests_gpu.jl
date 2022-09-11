@@ -33,11 +33,11 @@ domains = [θ ∈ Interval(0.0f0, 1.0f0)]
 dt = 0.1f0
 # Neural network
 inner = 20
-chain = Chain(Dense(1, inner, Flux.σ),
-              Dense(inner, inner, Flux.σ),
-              Dense(inner, inner, Flux.σ),
-              Dense(inner, inner, Flux.σ),
-              Dense(inner, inner, Flux.σ),
+chain = Chain(Dense(1, inner, tanh),
+              Dense(inner, inner, tanh),
+              Dense(inner, inner, tanh),
+              Dense(inner, inner, tanh),
+              Dense(inner, inner, tanh),
               Dense(inner, 1)) |> gpu
 
 strategy = NeuralPDE.GridTraining(dt)
@@ -79,12 +79,12 @@ domains = [t ∈ Interval(0.0, 1.0),
 @named pdesys = PDESystem(eq, bcs, domains, [t, x], [u(t, x)])
 
 inner = 30
-chain = Flux.Chain(Dense(2, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
+chain = Flux.Chain(Dense(2, inner, tanh),
+                   Dense(inner, inner, tanh),
+                   Dense(inner, inner, tanh),
+                   Dense(inner, inner, tanh),
+                   Dense(inner, inner, tanh),
+                   Dense(inner, inner, tanh),
                    Dense(inner, 1)) |> gpu
 
 strategy = NeuralPDE.StochasticTraining(500)
@@ -134,10 +134,10 @@ domains = [t ∈ Interval(0.0, 1.0),
 @named pdesys = PDESystem(eq, bcs, domains, [t, x], [u(t, x)])
 
 inner = 20
-chain = Flux.Chain(Dense(2, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
+chain = Flux.Chain(Dense(2, inner, tanh),
+                   Dense(inner, inner, tanh),
+                   Dense(inner, inner, tanh),
+                   Dense(inner, inner, tanh),
                    Dense(inner, 1)) |> gpu
 
 strategy = NeuralPDE.QuasiRandomTraining(500; #points
@@ -201,10 +201,10 @@ domains = [t ∈ Interval(t_min, t_max),
 
 # Neural network
 inner = 25
-chain = Flux.Chain(Dense(3, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
-                   Dense(inner, inner, Flux.σ),
+chain = Flux.Chain(Dense(3, inner, tanh),
+                   Dense(inner, inner, tanh),
+                   Dense(inner, inner, tanh),
+                   Dense(inner, inner, tanh),
                    Dense(inner, 1)) |> gpu
 
 strategy = NeuralPDE.GridTraining(0.05)

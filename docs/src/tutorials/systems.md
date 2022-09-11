@@ -66,7 +66,7 @@ domains = [t ∈ Interval(0.0,1.0),
 # Neural network
 input_ = length(domains)
 n = 15
-chain =[Lux.Chain(Dense(input_,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,1)) for _ in 1:3]
+chain =[Lux.Chain(Dense(input_,n,tanh),Dense(n,n,tanh),Dense(n,1)) for _ in 1:3]
 
 strategy = QuadratureTraining()
 discretization = PhysicsInformedNN(chain, strategy)
@@ -127,7 +127,7 @@ domains = [t ∈ Interval(0.0,1.0),
 # Neural network
 input_ = length(domains)
 n = 15
-chain =[Lux.Chain(Dense(input_,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,1)) for _ in 1:3]
+chain =[Lux.Chain(Dense(input_,n,tanh),Dense(n,n,tanh),Dense(n,1)) for _ in 1:3]
 @named pdesystem = PDESystem(eqs,bcs,domains,[t,x],[u1(t, x),u2(t, x),u3(t, x)])
 
 strategy = NeuralPDE.QuadratureTraining()

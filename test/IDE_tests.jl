@@ -21,7 +21,7 @@ Ii = Integral(t in DomainSets.ClosedInterval(0, t))
 eq = Di(i(t)) + 2 * i(t) + 5 * Ii(i(t)) ~ 1
 bcs = [i(0.0) ~ 0.0]
 domains = [t ∈ Interval(0.0, 2.0)]
-chain = Chain(Dense(1, 15, Flux.σ), Dense(15, 1))
+chain = Chain(Dense(1, 15, tanh), Dense(15, 1))
 strategy_ = NeuralPDE.GridTraining(0.1)
 discretization = NeuralPDE.PhysicsInformedNN(chain,
                                              strategy_)
@@ -51,8 +51,8 @@ eq = Ix(u(x) * cos(x)) ~ (x^3) / 3
 
 bcs = [u(0.0) ~ 0.0]
 domains = [x ∈ Interval(0.0, 1.00)]
-# chain = Chain(Dense(1,15,Flux.σ),Dense(15,1))
-chain = Lux.Chain(Lux.Dense(1, 15, Flux.σ), Lux.Dense(15, 1))
+# chain = Chain(Dense(1,15,tanh),Dense(15,1))
+chain = Lux.Chain(Lux.Dense(1, 15, tanh), Lux.Dense(15, 1))
 strategy_ = NeuralPDE.GridTraining(0.1)
 discretization = NeuralPDE.PhysicsInformedNN(chain,
                                              strategy_)
@@ -80,7 +80,7 @@ Ix = Integral((x, y) in DomainSets.UnitSquare())
 eq = Ix(u(x, y)) ~ 1 / 3
 bcs = [u(0.0, 0.0) ~ 1, Dx(u(x, y)) ~ -2 * x, Dy(u(x, y)) ~ -2 * y]
 domains = [x ∈ Interval(0.0, 1.00), y ∈ Interval(0.0, 1.00)]
-chain = Chain(Dense(2, 15, Flux.σ), Dense(15, 1))
+chain = Chain(Dense(2, 15, tanh), Dense(15, 1))
 strategy_ = NeuralPDE.GridTraining(0.1)
 discretization = NeuralPDE.PhysicsInformedNN(chain,
                                              strategy_)
@@ -110,7 +110,7 @@ Ix = Integral((x, y) in DomainSets.ProductDomain(UnitInterval(), ClosedInterval(
 eq = Ix(u(x, y)) ~ 5 / 12
 bcs = [u(0.0, 0.0) ~ 0, Dy(u(x, y)) ~ 2 * y, u(x, 0) ~ x]
 domains = [x ∈ Interval(0.0, 1.00), y ∈ Interval(0.0, 1.00)]
-chain = Chain(Dense(2, 15, Flux.σ), Dense(15, 1))
+chain = Chain(Dense(2, 15, tanh), Dense(15, 1))
 strategy_ = NeuralPDE.GridTraining(0.1)
 discretization = NeuralPDE.PhysicsInformedNN(chain,
                                              strategy_)
@@ -147,7 +147,7 @@ eqs = [Ix(u(x) * w(x)) ~ log(abs(x)),
 bcs = [u(1.0) ~ 1.0, w(1.0) ~ 1.0]
 domains = [x ∈ Interval(1.0, 2.0)]
 
-chains = [Lux.Chain(Lux.Dense(1, 15, Flux.σ), Lux.Dense(15, 1)) for _ in 1:2]
+chains = [Lux.Chain(Lux.Dense(1, 15, tanh), Lux.Dense(15, 1)) for _ in 1:2]
 strategy_ = NeuralPDE.GridTraining(0.1)
 discretization = NeuralPDE.PhysicsInformedNN(chains,
                                              strategy_)
@@ -179,7 +179,7 @@ Iinf = Integral(x in ClosedInterval(1, Inf))
 eqs = [I(u(x)) ~ Iinf(u(x)) - 1 / x]
 bcs = [u(1) ~ 1]
 domains = [x ∈ Interval(1.0, 2.0)]
-chain = Lux.Chain(Lux.Dense(1, 10, Flux.σ), Lux.Dense(10, 1))
+chain = Lux.Chain(Lux.Dense(1, 10, tanh), Lux.Dense(10, 1))
 discretization = NeuralPDE.PhysicsInformedNN(chain, NeuralPDE.GridTraining(0.1))
 @named pde_system = PDESystem(eqs, bcs, domains, [x], [u(x)])
 sym_prob = SciMLBase.symbolic_discretize(pde_system, discretization)

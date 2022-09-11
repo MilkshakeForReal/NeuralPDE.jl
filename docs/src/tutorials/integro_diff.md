@@ -55,7 +55,7 @@ Ii = Integral(t in DomainSets.ClosedInterval(0, t))
 eq = Di(i(t)) + 2*i(t) + 5*Ii(i(t)) ~ 1
 bcs = [i(0.) ~ 0.0]
 domains = [t ∈ Interval(0.0,2.0)]
-chain = Chain(Dense(1,15,Flux.σ),Dense(15,1)) |> f64
+chain = Chain(Dense(1,15,tanh),Dense(15,1)) |> f64
 
 strategy_ = GridTraining(0.05)
 discretization = PhysicsInformedNN(chain,

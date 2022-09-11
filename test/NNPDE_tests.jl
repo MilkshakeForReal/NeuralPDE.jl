@@ -32,7 +32,7 @@ function test_ode(strategy_)
     domains = [θ ∈ Interval(0.0, 1.0)]
 
     # Neural network
-    chain = Lux.Chain(Lux.Dense(1, 12, Flux.σ), Lux.Dense(12, 1))
+    chain = Lux.Chain(Lux.Dense(1, 12, tanh), Lux.Dense(12, 1))
 
     discretization = NeuralPDE.PhysicsInformedNN(chain,
                                                  strategy_)
@@ -81,13 +81,13 @@ function test_heterogeneous_equation(strategy_)
     domains = [x ∈ Interval(0.0, 1.0),
         y ∈ Interval(0.0, 1.0)]
 
-    # chain_ = Lux.Chain(Lux.Dense(2,12,Flux.σ),Lux.Dense(12,12,Flux.σ),Lux.Dense(12,1))
+    # chain_ = Lux.Chain(Lux.Dense(2,12,tanh),Lux.Dense(12,12,tanh),Lux.Dense(12,1))
     numhid = 3
-    luxchain = [[Lux.Chain(Lux.Dense(1, numhid, Flux.σ),
-                           Lux.Dense(numhid, numhid, Flux.σ), Lux.Dense(numhid, 1))
+    luxchain = [[Lux.Chain(Lux.Dense(1, numhid, tanh),
+                           Lux.Dense(numhid, numhid, tanh), Lux.Dense(numhid, 1))
                  for i in 1:2]
-                [Lux.Chain(Lux.Dense(2, numhid, Flux.σ),
-                           Lux.Dense(numhid, numhid, Flux.σ), Lux.Dense(numhid, 1))
+                [Lux.Chain(Lux.Dense(2, numhid, tanh),
+                           Lux.Dense(numhid, numhid, tanh), Lux.Dense(numhid, 1))
                  for i in 1:2]]
     discretization = NeuralPDE.PhysicsInformedNN(luxchain,
                                                  strategy_)
@@ -117,13 +117,13 @@ function test_heterogeneous_system(strategy_)
     domains = [x ∈ Interval(0.0, 1.0),
         y ∈ Interval(-1.0, 0.0)]
 
-    # chain_ = Lux.Chain(Lux.Dense(2,12,Flux.σ),Lux.Dense(12,12,Flux.σ),Lux.Dense(12,1))
+    # chain_ = Lux.Chain(Lux.Dense(2,12,tanh),Lux.Dense(12,12,tanh),Lux.Dense(12,1))
     numhid = 3
-    luxchain = [[Lux.Chain(Lux.Dense(1, numhid, Flux.σ),
-                           Lux.Dense(numhid, numhid, Flux.σ), Lux.Dense(numhid, 1))
+    luxchain = [[Lux.Chain(Lux.Dense(1, numhid, tanh),
+                           Lux.Dense(numhid, numhid, tanh), Lux.Dense(numhid, 1))
                  for i in 1:2]
-                [Lux.Chain(Lux.Dense(2, numhid, Flux.σ),
-                           Lux.Dense(numhid, numhid, Flux.σ), Lux.Dense(numhid, 1))
+                [Lux.Chain(Lux.Dense(2, numhid, tanh),
+                           Lux.Dense(numhid, numhid, tanh), Lux.Dense(numhid, 1))
                  for i in 1:2]]
     discretization = NeuralPDE.PhysicsInformedNN(luxchain,
                                                  strategy_)
@@ -293,22 +293,22 @@ function test_2d_poisson_equation(chain_, strategy_)
     # plot(p1,p2,p3)
 end
 
-chain = Lux.Chain(Lux.Dense(2, 12, Flux.σ), Lux.Dense(12, 12, Flux.σ), Lux.Dense(12, 1))
-fluxchain = Chain(Dense(2, 12, Flux.σ), Dense(12, 12, Flux.σ), Dense(12, 1)) |> f64
+chain = Lux.Chain(Lux.Dense(2, 12, tanh), Lux.Dense(12, 12, tanh), Lux.Dense(12, 1))
+fluxchain = Chain(Dense(2, 12, tanh), Dense(12, 12, tanh), Dense(12, 1)) |> f64
 chains = [fluxchain, chain]
 for chain in chains
     test_2d_poisson_equation(chain, grid_strategy)
 end
 
 for strategy_ in strategies
-    chain_ = Lux.Chain(Lux.Dense(2, 12, Flux.σ), Lux.Dense(12, 12, Flux.σ),
+    chain_ = Lux.Chain(Lux.Dense(2, 12, tanh), Lux.Dense(12, 12, tanh),
                        Lux.Dense(12, 1))
     test_2d_poisson_equation(chain_, strategy_)
 end
 
 algs = [CubatureJLp()] #CubatureJLh(),
 for alg in algs
-    chain_ = Lux.Chain(Lux.Dense(2, 12, Flux.σ), Lux.Dense(12, 12, Flux.σ),
+    chain_ = Lux.Chain(Lux.Dense(2, 12, tanh), Lux.Dense(12, 12, tanh),
                        Lux.Dense(12, 1))
     strategy_ = NeuralPDE.QuadratureTraining(quadrature_alg = alg, reltol = 1e-4,
                                              abstol = 1e-3, maxiters = 30, batch = 10)
@@ -453,7 +453,7 @@ domains = [x ∈ Interval(0.0, 1.0),
 @named pde_system = PDESystem(eq, bcs, domains, [x, t], [u(x, t)])
 
 # Neural network
-chain = Lux.Chain(Lux.Dense(2, 16, Lux.σ), Lux.Dense(16, 16, Lux.σ), Lux.Dense(16, 1))
+chain = Lux.Chain(Lux.Dense(2, 16, tanh), Lux.Dense(16, 16, tanh), Lux.Dense(16, 1))
 phi = NeuralPDE.Phi(chain)
 derivative = NeuralPDE.numeric_derivative
 

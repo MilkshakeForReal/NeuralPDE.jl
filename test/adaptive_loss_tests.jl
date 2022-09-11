@@ -18,7 +18,7 @@ seed = 60
 function test_2d_poisson_equation_adaptive_loss(adaptive_loss; seed = 60, maxiters = 4000)
     Random.seed!(seed)
     hid = 40
-    chain_ = Lux.Chain(Lux.Dense(2, hid, Lux.σ), Lux.Dense(hid, hid, Lux.σ),
+    chain_ = Lux.Chain(Lux.Dense(2, hid, tanh), Lux.Dense(hid, hid, tanh),
                        Lux.Dense(hid, 1))
     strategy_ = NeuralPDE.StochasticTraining(256)
     @info "adaptive reweighting test outdir:, maxiters: $(maxiters), 2D Poisson equation, adaptive_loss: $(nameof(typeof(adaptive_loss))) "

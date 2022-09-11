@@ -76,7 +76,7 @@ domains = [x ∈ Interval(0.0, 1.0),
 # Neural network
 input_ = length(domains)
 n = 15
-chain = [Lux.Chain(Dense(input_, n, Lux.σ), Dense(n, n, Lux.σ), Dense(n, 1)) for _ in 1:6] # 1:number of @variables
+chain = [Lux.Chain(Dense(input_, n, tanh), Dense(n, n, tanh), Dense(n, 1)) for _ in 1:6] # 1:number of @variables
 
 strategy = QuadratureTraining()
 discretization = PhysicsInformedNN(chain, strategy)

@@ -91,7 +91,7 @@ domains = [t ∈ Interval(0.0, 1.0),
 
 input_ = length(domains)
 n = 15
-chain = [Lux.Chain(Dense(input_,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,1)) for _ in 1:7]
+chain = [Lux.Chain(Dense(input_,n,tanh),Dense(n,n,tanh),Dense(n,1)) for _ in 1:7]
 
 grid_strategy = NeuralPDE.GridTraining(0.07)
 discretization = NeuralPDE.PhysicsInformedNN(chain,

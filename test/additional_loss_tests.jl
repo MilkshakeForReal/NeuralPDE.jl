@@ -35,9 +35,9 @@ domains = [x ∈ Interval(-2.2, 2.2)]
 
 # Neural network
 inn = 18
-chain = Lux.Chain(Lux.Dense(1, inn, Lux.σ),
-                  Lux.Dense(inn, inn, Lux.σ),
-                  Lux.Dense(inn, inn, Lux.σ),
+chain = Lux.Chain(Lux.Dense(1, inn, tanh),
+                  Lux.Dense(inn, inn, tanh),
+                  Lux.Dense(inn, inn, tanh),
                   Lux.Dense(inn, 1))
 init_params = Float64.(ComponentArray(Lux.setup(Random.default_rng(), chain)[1]))
 
@@ -142,7 +142,7 @@ dt = 0.05
 
 input_ = length(domains)
 n = 12
-chain = [Lux.Chain(Lux.Dense(input_, n, Lux.tanh), Lux.Dense(n, n, Lux.σ),
+chain = [Lux.Chain(Lux.Dense(input_, n, Lux.tanh), Lux.Dense(n, n, tanh),
                    Lux.Dense(n, 1)) for _ in 1:3]
 #Generate Data
 function lorenz!(du, u, p, t)

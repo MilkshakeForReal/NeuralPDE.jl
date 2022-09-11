@@ -34,9 +34,9 @@ And the neural networks as,
 ```@example param_estim
 input_ = length(domains)
 n = 8
-chain1 = Lux.Chain(Dense(input_,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,1))
-chain2 = Lux.Chain(Dense(input_,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,1))
-chain3 = Lux.Chain(Dense(input_,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,n,Lux.σ),Dense(n,1))
+chain1 = Lux.Chain(Dense(input_,n,tanh),Dense(n,n,tanh),Dense(n,n,tanh),Dense(n,1))
+chain2 = Lux.Chain(Dense(input_,n,tanh),Dense(n,n,tanh),Dense(n,n,tanh),Dense(n,1))
+chain3 = Lux.Chain(Dense(input_,n,tanh),Dense(n,n,tanh),Dense(n,n,tanh),Dense(n,1))
 ```
 
 We will add an additional loss term based on the data that we have in order to optimise the parameters.

@@ -42,7 +42,7 @@ domains = [t ∈ Interval(0.0,1.0),
 dx = 0.1
 
 # Neural network
-chain = Lux.Chain(Dense(2,16,Lux.σ),Dense(16,16,Lux.σ),Dense(16,1))
+chain = Lux.Chain(Dense(2,16,tanh),Dense(16,16,tanh),Dense(16,1))
 discretization = PhysicsInformedNN(chain, GridTraining(dx))
 
 @named pde_system = PDESystem(eq,bcs,domains,[t,x],[u(t,x)])

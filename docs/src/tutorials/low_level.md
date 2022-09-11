@@ -39,7 +39,7 @@ domains = [t ∈ Interval(0.0,1.0),
 dx = 0.05
 
 # Neural network
-chain = Lux.Chain(Dense(2,16,Lux.σ),Dense(16,16,Lux.σ),Dense(16,1))
+chain = Lux.Chain(Dense(2,16,tanh),Dense(16,16,tanh),Dense(16,1))
 strategy = NeuralPDE.GridTraining(dx)
 
 indvars = [t,x]

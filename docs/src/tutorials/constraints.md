@@ -48,9 +48,9 @@ domains = [x ∈ Interval(x_0,x_end)]
 
 # Neural network
 inn = 18
-chain = Lux.Chain(Dense(1,inn,Lux.σ),
-                  Dense(inn,inn,Lux.σ),
-                  Dense(inn,inn,Lux.σ),
+chain = Lux.Chain(Dense(1,inn,tanh),
+                  Dense(inn,inn,tanh),
+                  Dense(inn,inn,tanh),
                   Dense(inn,1))
 
 lb = [x_0]

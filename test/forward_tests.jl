@@ -46,7 +46,7 @@ using ComponentArrays
 end
 
 @testset "derivatives" begin
-    chain = Flux.Chain(Flux.Dense(2, 16, Lux.σ), Flux.Dense(16, 16, Lux.σ),
+    chain = Flux.Chain(Flux.Dense(2, 16, tanh), Flux.Dense(16, 16, tanh),
                        Flux.Dense(16, 1)) |> Flux.f64
     init_params = Flux.destructure(chain)[1]
 

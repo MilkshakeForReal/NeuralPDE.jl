@@ -29,7 +29,7 @@ domains = [x ∈ Interval(0.0,1.0),
            t ∈ Interval(0.0,1.0)]
 
 # Neural network
-chain = FastChain(FastDense(2,16,Flux.σ),FastDense(16,16,Flux.σ),FastDense(16,1))
+chain = FastChain(FastDense(2,16,tanh),FastDense(16,16,tanh),FastDense(16,1))
 init_params = DiffEqFlux.initial_params(chain)
 
 eltypeθ = eltype(init_params)
