@@ -495,11 +495,11 @@ function SciMLBase.symbolic_discretize(pde_system::PDESystem,
 
     if (phi isa Vector && phi[1].f isa Lux.AbstractExplicitLayer)
         for ϕ in phi
-            ϕ.st = adapt(parameterless_type(ComponentArrays.getdata(flat_init_params)),
+            Lux.@set! ϕ.st = adapt(parameterless_type(ComponentArrays.getdata(flat_init_params)),
                          ϕ.st)
         end
     elseif (!(phi isa Vector) && phi.f isa Lux.AbstractExplicitLayer)
-        phi.st = adapt(parameterless_type(ComponentArrays.getdata(flat_init_params)),
+        Lux.@set! phi.st = adapt(parameterless_type(ComponentArrays.getdata(flat_init_params)),
                        phi.st)
     end
 
