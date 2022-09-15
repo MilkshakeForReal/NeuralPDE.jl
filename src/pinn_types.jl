@@ -345,14 +345,16 @@ Fields:
 mutable struct Phi{C, S}
     f::C
     st::S
-    function Phi(chain::Lux.AbstractExplicitLayer)
-        st = Lux.initialstates(Random.default_rng(), chain)
-        new{typeof(chain), typeof(st)}(chain, st)
-    end
-    function Phi(chain::Flux.Chain)
-        re = Flux.destructure(chain)[2]
-        new{typeof(re), Nothing}(re, nothing)
-    end
+end
+
+function Phi(chain::Lux.AbstractExplicitLayer)
+    st = Lux.initialstates(Random.default_rng(), chain)
+    Phi{typeof(chain), typeof(st)}(chain, st)
+end
+
+function Phi(chain::Flux.Chain)
+    re = Flux.destructure(chain)[2]
+    Phi{typeof(re), Nothing}(re, nothing)
 end
 
 function (f::Phi{<:Lux.AbstractExplicitLayer})(x::Number, θ)

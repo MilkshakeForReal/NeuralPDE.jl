@@ -495,10 +495,10 @@ function SciMLBase.symbolic_discretize(pde_system::PDESystem,
 
     if (phi isa Vector && phi[1].f isa Lux.AbstractExplicitLayer)
         for ϕ in phi
-            ϕ.st = adapt(typeof(flat_init_params), ϕ.st)
+            Lux.@set! ϕ.st = adapt(typeof(flat_init_params), ϕ.st)
         end
     elseif (!(phi isa Vector) && phi.f isa Lux.AbstractExplicitLayer)
-        phi.st = adapt(typeof(flat_init_params), phi.st)
+        Lux.@set! phi.st = adapt(typeof(flat_init_params), phi.st)
     end
 
     derivative = discretization.derivative
